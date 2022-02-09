@@ -9,11 +9,13 @@ U1. db.movies.update({title: "The Hobbit: An Unexpected Journey"}, {$set: {synop
 U2. db.movies.update({title: "The Hobbit: The Desolation of Smaug"}, {$set: {synopsis: "The dwarves, along with Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical ring."}})
 U3: db.movies.update({title: "Pulp Fiction"}, {$set: {actors: "Samuel L. Jackson"}})
 
-TS1: db.movies.find({synopsis: /.Bilbo./})
-TS2: db.movies.find({synopsis: /.Gandalf./})
-TS3: db.movies.find({$and: [{synopsis: /.Bilbo./}, {synopsis: /.^Gandalf./}]})
-TS4: db.movies.find({$and: [{synopsis: /Bilbo/}, {synopsis: {$not: /Gandalf/}}]})
-TS5: db.movies.find({$or: [{synopsis: /dwarves/}, {synopsis: /hobbit/}]})
+
+TS1: db.users.createIndex({synopsis:"text"})
+TS2: db.users.find({$text:{$search:"bilbo"}}
+TS3: db.users.find({$text:{$search:"Gandalf"}})
+TS4: db.users.find({$text:{$search:"bilbo -Gandalf"}})
+TS5: db.users.find({$text:{$search:"dwarves or hobbit"}})
+TS6: db.users.find({$text:{$search:"gold and dragon"}})
 
 D1: db.movies.remove({title: "Pee Wee Herman's Big Adventure"})
 D2: db.movies.remove({title: "Avatar"})
